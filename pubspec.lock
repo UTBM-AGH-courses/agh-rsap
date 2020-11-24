@@ -226,13 +226,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.13"
-  rsa_encrypt:
-    dependency: "direct main"
-    description:
-      name: rsa_encrypt
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.5"
   shared_preferences:
     dependency: "direct main"
     description:
