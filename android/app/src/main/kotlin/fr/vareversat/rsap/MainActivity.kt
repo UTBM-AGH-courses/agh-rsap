@@ -1,4 +1,4 @@
-package fr.vareversat.cyber_secu_project
+package fr.vareversat.rsap
 
 import io.flutter.embedding.android.FlutterActivity
 

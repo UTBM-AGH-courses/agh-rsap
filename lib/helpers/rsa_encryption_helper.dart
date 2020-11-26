@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:cyber_secu_project/helpers/rsa_parser_helper.dart';
+import 'package:RSAp/helpers/rsa_parser_helper.dart';
 import "package:pointycastle/export.dart";
 
 class RSAEncryptionHelper {

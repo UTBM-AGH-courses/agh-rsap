@@ -1,4 +1,4 @@
-name: cyber_secu_project
+name: RSAp
 description: A new Flutter project.
 
 publish_to: 'none'
@@ -12,11 +12,11 @@ dependencies:
   pointycastle: ^2.0.0
   asn1lib: ^0.8.1
   shared_preferences: ^0.5.12+4
-  downloads_path_provider_28: ^0.1.0
   open_file: ^3.0.1
   permission_handler: ^4.0.0
   path_provider: ^1.6.5
   file_picker: ^2.0.13
+  flutter_launcher_icons: ^0.8.1
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.0
@@ -27,3 +27,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - lib/assets/locker.png
+
+flutter_icons:
+  image_path: 'lib/assets/locker.png'
+  android: true
+  ios: true

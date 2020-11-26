@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:cyber_secu_project/helpers/rsa_encryption_helper.dart';
-import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+import 'package:RSAp/helpers/rsa_encryption_helper.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -23,11 +22,10 @@ class _EncryptScreenState extends State<EncryptScreen> {
 
   Future<void> _saveEncryptedMessage() async {
     final _fileName = "encrypted_message.txt";
-    final dir = await DownloadsPathProvider.downloadsDirectory;
     final isPermissionStatusGranted = await _requestPermissions();
 
     if (isPermissionStatusGranted) {
-      File('${dir.path}/$_fileName').writeAsBytes(_encryptedMessage);
+      File('/storage/emulated/0/Download/$_fileName').writeAsBytes(_encryptedMessage);
     }
   }
 
@@ -50,7 +48,6 @@ class _EncryptScreenState extends State<EncryptScreen> {
       setState(() {
         _encryptedMessage = cipher;
       });
-      print(_encryptedMessage);
       await _saveEncryptedMessage();
       (_key.currentState as ScaffoldState).showSnackBar(SnackBar(
         content: Text("Encrypted message saved !"),
