@@ -21,9 +21,9 @@ class _DecryptScreenState extends State<DecryptScreen> {
   void _decrypt() async {
     final prefs = await SharedPreferences.getInstance();
     final privateKey = prefs.getString('private_key');
-    var test = RSAEncryptionHelper.rsaDecrypt(privateKey, _encryptedMessage);
+    var plainText = RSAEncryptionHelper.rsaDecrypt(privateKey, _encryptedMessage);
     setState(() {
-      _decryptedMessage = test;
+      _decryptedMessage = plainText;
     });
     (_key.currentState as ScaffoldState).showSnackBar(SnackBar(
       content: Text("Encrypted message decrypted !"),

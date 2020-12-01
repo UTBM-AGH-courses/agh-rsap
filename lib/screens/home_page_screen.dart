@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:RSAp/helpers/rsa_helper.dart';
+import 'package:RSAp/screens/check_signature.dart';
 import 'package:RSAp/screens/decrypt_screen.dart';
 import 'package:RSAp/screens/encrypt_screen.dart';
+import 'package:RSAp/screens/sign_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -17,16 +19,20 @@ class HomePageScreen extends StatefulWidget {
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
-  bool _ok = false;
-  String _message = "Keys generated";
+  String _message = "";
   final _key = GlobalKey();
+  var selectedKeyLength = 2048;
 
-  void _generateKey() async {
-    final pair = RSAHelper.generateRSAKeyPair();
+  void _generateKey() {
+    setState(() {
+      _message = "Keys are generating ...";
+    });
+    final stopwatch = Stopwatch()..start();
+    final pair = RSAHelper.generateRSAKeyPair(selectedKeyLength);
     _savePublicKey(pair.publicKey);
     _savePrivateKey(pair.privateKey);
     setState(() {
-      _ok = true;
+      _message = "Keys generated (in ${stopwatch.elapsed.inMilliseconds} ms.)";
     });
     (_key.currentState as ScaffoldState).showSnackBar(SnackBar(
       content: Text("Public key saved in the Download directory !"),
@@ -79,11 +85,33 @@ class _HomePageScreenState extends State<HomePageScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (_ok)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Icon(Icons.check), Text(_message)],
-              ),
+            Column(
+              children: [
+                RadioListTile(
+                  value: 2048,
+                  groupValue: selectedKeyLength,
+                  title: Text("2048 bits"),
+                  onChanged: (val) {
+                    setState(() {
+                      selectedKeyLength = val;
+                    });
+                  },
+                ),
+                RadioListTile(
+                  value: 4096,
+                  groupValue: selectedKeyLength,
+                  title: Text("4096 bits"),
+                  onChanged: (val) {
+                    setState(() {
+                      selectedKeyLength = val;
+                    });
+                  },
+                ),
+              ],
+            ),
+            Center(
+              child: Text(_message),
+            ),
             Container(
               child: FutureBuilder<bool>(
                 builder: (context, snapshot) {
@@ -94,7 +122,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Text(
-                        'A private key is already in use. If you generate a new key pair, it would be override',
+                        'A private key is already in use. If you generate a new key pair, it will be override',
                         style: TextStyle(fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
@@ -114,19 +142,53 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   },
                   child: Text('Generate keys pair')),
             ),
-            Divider(height: 50,),
-            RaisedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => DecryptScreen()));
-                },
-                child: Text('Decrypt')),
-            RaisedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => EncryptScreen()));
-                },
-                child: Text('Encrypt'))
+            Divider(
+              height: 50,
+            ),
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 20,
+              children: [
+                RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DecryptScreen()));
+                    },
+                    child: Text('Decrypt')),
+                RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EncryptScreen()));
+                    },
+                    child: Text('Encrypt'))
+              ],
+            ),
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 20,
+              children: [
+                RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignScreen()));
+                    },
+                    child: Text('Sign')),
+                RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CheckSignature()));
+                    },
+                    child: Text('Check signature'))
+              ],
+            ),
           ],
         ),
       ),

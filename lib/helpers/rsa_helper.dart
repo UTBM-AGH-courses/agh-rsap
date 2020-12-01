@@ -7,10 +7,10 @@ import "package:pointycastle/export.dart";
 
 class RSAHelper {
 
-  static AsymmetricKeyPair<RSAPublicKey, RSAPrivateKey> generateRSAKeyPair() {
+  static AsymmetricKeyPair<RSAPublicKey, RSAPrivateKey> generateRSAKeyPair(int keyLength) {
     List<int> seeds = [];
 
-    var keyParams = RSAKeyGeneratorParameters(BigInt.from(65537), 2048, 5);
+    var keyParams = RSAKeyGeneratorParameters(BigInt.from(65537), keyLength, 5);
     var secureRandom = FortunaRandom();
     var random = Random.secure();
 
@@ -33,7 +33,7 @@ class RSAHelper {
     return AsymmetricKeyPair<RSAPublicKey, RSAPrivateKey>(myPublic, myPrivate);
   }
 
-  static SecureRandom exampleSecureRandom() {
+  static SecureRandom generateSecureRandom() {
     final secureRandom = FortunaRandom();
 
     final seedSource = Random.secure();

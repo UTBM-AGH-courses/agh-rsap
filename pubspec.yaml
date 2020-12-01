@@ -17,6 +17,7 @@ dependencies:
   path_provider: ^1.6.5
   file_picker: ^2.0.13
   flutter_launcher_icons: ^0.8.1
+  bs58check: ^1.0.1
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.0
