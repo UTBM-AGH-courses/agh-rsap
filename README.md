@@ -1,12 +1,17 @@
 # RSAp
 
-A mobile app using asymmetric encryption to encrypt/decrypt and sign message (via input or text file) using the flutter framework
+A mobile app using asymmetric encryption to encrypt/decrypt and sign message (via user input or text file) using the flutter framework
 
-## Generate the keys
+## Main goal of the application
+
+When `Alice` sends a message to Bob, she uses the public key to encrypt her message and send the cypher to
+Bob. Then `Bob` uses his private key to decrypt it and get the full message.
+
+## RSA - Key generation
 
 The RSA (Rivest–Shamir–Adleman) uses a pair of 2 separates keys : 
-* The **private** key is keep by the person (Bob) who generated the pair
-* The **public** key is gave to the people who want to communicate with him (Alice)
+* The **private** key is keep by the person `Bob` who generated the pair
+* The **public** key is gave to the people who want to communicate with him `Alice`
 
 To get those two keys, this algorithm is used :
 1. Choose 2 distinct prime number `p` and `q`
@@ -25,12 +30,7 @@ with:
 * `M`: The encrypted message
 * `m`: The plain text message
 
-## Main goal
-
-When `Alice` sends a message to Bob, she uses the public key to encrypt her message and send the cypher to
-Bob. Then `Bob` uses his private key to decrypt it and get the full message.
-
-## Limits
+## RSA - Limits
 
 The algorithm is widely uses on the computer world nowadays but may be quite expensive in terms of
 key computation especially for large keys (4096 bits) on mobile devices. Large keys take also more space on the 
@@ -39,7 +39,7 @@ internal storage.
 ## The solution : ECC algorithm
 
 The ECC (Elliptic Curve Cryptography) algorithm is used for website certificates signing but also as the key stone 
-in the blockchain world. In fact, this cryptosystem is more efficient in terms of computation use and reach the same level
+for the Bitcoin. In fact, this cryptosystem is more efficient in terms of computation use and reach the same level
 of security of RSA but with a shorter key length as in the chart bellow.
 
 | ECC | RSA   |
@@ -53,7 +53,7 @@ of security of RSA but with a shorter key length as in the chart bellow.
 This made the cryptosystem well fitted for the mobile devices and websites by being more efficiant and allowing 
 shorter key with the same level of security.
 
-## The magic behind ECC
+## ECC - How it works ?
 
 ECC uses a mathematical object called `elliptic curve`
 
@@ -80,7 +80,7 @@ By getting `D` (public key) it's very hard to find the number `4` (private key).
 Despite almost three decades of research, mathematicians still haven't found an algorithm to solve this problem
 that improves upon the naive approach.
 
-## Generating an ECC keys
+## ECC - Key generation
 
 With this object, we can generate the key pair : 
 1. EC function : `y^2 = x^3 + ax + b`
@@ -102,5 +102,9 @@ For example, the bitcoin uses these parameters :
 * `n` = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141
 * `d` = 0x51897b64e85c3f714bba707e867914295a1377a7463a9dae8ea6a8b914246319
 
+## ECC - Limits
+
+Even if ECC may be better than RSA, the choice of the parameters for the key generation may have 
+a consequences on the strength of the keys. If `d` is too low, it may be easy to guess it by brut force.
 
 
