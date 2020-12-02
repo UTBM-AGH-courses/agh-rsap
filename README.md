@@ -17,11 +17,13 @@ To get those two keys, this algorithm is used :
 
 **The couple `(e,n)` is the public key and `(d,n)` is the private key**
 
-*Encrypt / Sign* ==> **M ≡ m^e (mod n)** \
-*Decrypt / Check signature* ==> **m ≡ M^d (mod n)** \
+| Encrypt | Decrypt                         |
+|---------|---------------------------------|
+| **M ≡ m^e (mod n)** | **m ≡ M^d (mod n)** |
+
 with: 
-* `M: The encrypted message
-* `m: The plain text message
+* `M`: The encrypted message
+* `m`: The plain text message
 
 ## Main goal
 
