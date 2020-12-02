@@ -1,4 +1,4 @@
-# RSAp
+![](banner.png)
 
 A mobile app using asymmetric encryption to encrypt/decrypt and sign message (via user input or text file) using the flutter framework
 
