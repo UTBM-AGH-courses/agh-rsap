@@ -15,7 +15,7 @@ dependencies:
   open_file: ^3.0.1
   permission_handler: ^4.0.0
   path_provider: ^1.6.5
-  file_picker: ^2.0.13
+  file_picker: ^2.1.5
   flutter_launcher_icons: ^0.8.1
   bs58check: ^1.0.1
   flutter:
